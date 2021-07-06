@@ -55,7 +55,7 @@ io.on('connection', socket => {
 
 const PORT = process.env.PORT || 8000
  
-const path = require('path');
+
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
@@ -64,7 +64,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
-
 
 server.listen(process.env.PORT || 8000, () => console.log('server is running...'));
 
