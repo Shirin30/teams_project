@@ -54,12 +54,17 @@ io.on('connection', socket => {
 });
 
 const PORT = process.env.PORT || 8000
-if(process.env.PROD){
-    app.use( express.static(__dirname + '/client/build'));
-    app.get('*', (request, response) => {
-	    response.sendFile(path.join(__dirname, 'client/build/index.html'));
-    });
+ 
+const path = require('path');
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+// Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
 }
+
 
 server.listen(process.env.PORT || 8000, () => console.log('server is running...'));
 
